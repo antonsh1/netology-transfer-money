@@ -1,12 +1,11 @@
 package ru.smartjava.objects;
 
 import lombok.*;
-import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
+import java.util.Date;
 
 //@ConditionalOnProperty(prefix="transfer")
 @Getter
@@ -15,6 +14,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 public class Transfer {
+
+    Date date = new Date();
 
     @NotNull
     //@CreditCardNumber
@@ -33,6 +34,10 @@ public class Transfer {
 //    @CreditCardNumber
     @Size(min = 16, max = 16)
     String cardToNumber;
+
+    String result = "";
+
+    Boolean closed = false;
 
     @Valid
     Amount amount;

@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.smartjava.exceptions.InvalidCode;
-import ru.smartjava.exceptions.InvalidTransactionId;
+import ru.smartjava.exceptions.InvalidOperationId;
+import ru.smartjava.exceptions.TransferClosed;
 import ru.smartjava.objects.ErrorMessage;
 
 import java.util.HashMap;
@@ -68,8 +69,13 @@ public class RestExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(InvalidTransactionId.class)
-    public ErrorMessage handleInvalidTransactionId(InvalidTransactionId exception) {
+    @ExceptionHandler(InvalidOperationId.class)
+    public ErrorMessage handleInvalidTransactionId(InvalidOperationId exception) {
+        return new ErrorMessage(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(TransferClosed.class)
+    public ErrorMessage handleTransferClosed(TransferClosed exception) {
         return new ErrorMessage(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
     }
 }
