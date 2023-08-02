@@ -11,8 +11,6 @@ public interface TransferRepository {
 
     UUID addTransfer(UUID uuid, Transfer transfer);
 
-    Optional<Transfer> getTransfer(UUID uuid);
-
     Optional<Transfer> getTransfer(String uuid);
 
     void updateTransferResult(UUID uuid, String result);

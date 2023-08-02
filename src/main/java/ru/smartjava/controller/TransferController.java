@@ -17,7 +17,7 @@ public class TransferController {
     private final TransferService transferService;
 
     @Autowired
-    public TransferController(TransferService transferService, WriteLog writeLog) {
+    public TransferController(TransferService transferService) {
         this.transferService = transferService;
     }
 

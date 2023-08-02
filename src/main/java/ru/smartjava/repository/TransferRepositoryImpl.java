@@ -21,10 +21,6 @@ public class TransferRepositoryImpl implements TransferRepository {
         return uuid;
     }
 
-    public Optional<Transfer> getTransfer(UUID uuid) {
-        return Optional.ofNullable(repository.get(uuid));
-    }
-
     public Optional<Transfer> getTransfer(String uuid) {
         return Optional.ofNullable(repository.get(UUID.fromString(uuid)));
     }
