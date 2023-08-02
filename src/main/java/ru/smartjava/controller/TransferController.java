@@ -6,7 +6,6 @@ import ru.smartjava.objects.ConfirmMessage;
 import ru.smartjava.objects.OperationId;
 import ru.smartjava.objects.Transfer;
 import ru.smartjava.service.TransferService;
-import ru.smartjava.transferlog.WriteLog;
 
 import javax.validation.Valid;
 
