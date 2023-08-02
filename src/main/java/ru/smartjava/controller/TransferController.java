@@ -9,19 +9,16 @@ import ru.smartjava.service.TransferService;
 import ru.smartjava.transferlog.WriteLog;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
 public class TransferController {
 
     private final TransferService transferService;
-    private final WriteLog writeLog;
 
     @Autowired
     public TransferController(TransferService transferService, WriteLog writeLog) {
         this.transferService = transferService;
-        this.writeLog = writeLog;
     }
 
     @GetMapping("/check")
@@ -37,14 +34,7 @@ public class TransferController {
 
     @PostMapping("/confirmOperation")
     public OperationId confirmCode(@Valid @RequestBody ConfirmMessage confirmMessage) {
-//        writeLog.showLogFile();
-        Optional<OperationId> operationId = transferService.confirmTransfer(confirmMessage);
-//        if (operationId.isEmpty()) {
-//            throw new InvalidOperationId("Неверный код транзакции");
-//        }
-//        if (!transferService.checkCode(confirmMessage.getCode())) {
-//            throw new InvalidCode("Неверный код подтверждения");
-//        }
+        transferService.confirmTransfer(confirmMessage);
         return confirmMessage.getOperationId();
     }
 }

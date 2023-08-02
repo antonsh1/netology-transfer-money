@@ -19,9 +19,6 @@ import java.util.UUID;
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class WriteLog {
 
-    @Value("${service.message.writelog.error}")
-    private String errorMessage;
-
     @Value("${writelog.filename:defaulttransfer.log}")
     private String fileName;
 

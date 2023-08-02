@@ -17,6 +17,4 @@ public interface TransferRepository {
 
     void updateTransferResult(UUID uuid, String result);
 
-    void closeTransfer(UUID uuid);
-
 }

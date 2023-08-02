@@ -19,8 +19,7 @@ public class RestExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ErrorMessage handleInternalErrorExceptions(
-            Exception ex) {
+    public ErrorMessage handleInternalErrorExceptions() {
         return new ErrorMessage("Внутренняя ошибка сервера", HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 

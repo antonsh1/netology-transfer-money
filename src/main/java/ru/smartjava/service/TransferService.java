@@ -1,6 +1,6 @@
 package ru.smartjava.service;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.smartjava.exceptions.InvalidCode;
@@ -8,7 +8,6 @@ import ru.smartjava.exceptions.InvalidOperationId;
 import ru.smartjava.exceptions.TransferClosed;
 import ru.smartjava.objects.Code;
 import ru.smartjava.objects.ConfirmMessage;
-import ru.smartjava.objects.OperationId;
 import ru.smartjava.objects.Transfer;
 import ru.smartjava.repository.TransferRepository;
 import ru.smartjava.transferlog.WriteLog;
@@ -47,7 +46,7 @@ public class TransferService {
         return transferRepository.addTransfer(UUID.randomUUID(), transfer).toString();
     }
 
-    public Optional<OperationId> confirmTransfer(ConfirmMessage confirmMessage) {
+    public void confirmTransfer(ConfirmMessage confirmMessage) {
         UUID uuid = UUID.fromString(confirmMessage.getOperationId().getOperationId());
         System.out.println(confirmMessage);
         Optional<Transfer> transfer = transferRepository.getTransfer(confirmMessage.getOperationId().getOperationId());
@@ -57,7 +56,6 @@ public class TransferService {
         if (transfer.get().getClosed()) {
             throw new TransferClosed(TransferClosedMessage);
         }
-        transferRepository.closeTransfer(uuid);
         if (!checkCode(confirmMessage.getCode())) {
             transferRepository.updateTransferResult(uuid, InvalidCodeMessage);
             writeLog.printResult(uuid, InvalidCodeMessage);
@@ -65,12 +63,10 @@ public class TransferService {
         }
         transferRepository.updateTransferResult(uuid, SuccessMessage);
         writeLog.printResult(uuid, SuccessMessage);
-        return Optional.of(confirmMessage.getOperationId());
+//        return Optional.of(confirmMessage.getOperationId());
     }
 
     public Boolean checkCode(Code code) {
-        System.out.println(code);
-        System.out.println(DEFAULT_CODE);
         return Objects.equals(code.getCode(), DEFAULT_CODE);
     }
 }
