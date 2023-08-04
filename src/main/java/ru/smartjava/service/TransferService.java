@@ -1,6 +1,7 @@
 package ru.smartjava.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.smartjava.exceptions.InvalidCode;
@@ -18,38 +19,40 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Setter
 public class TransferService {
 
-    @Value("${service.default.code:1111}")
-    private String DEFAULT_CODE;
+    public String DEFAULT_CODE = "0000";
 
     @Value("${service.message.invalid.operationid}")
-    private String InvalidOperationIdMessage;
+    public String InvalidOperationIdMessage;
 
-    @Value("${service.message.invalid.code}")
-    private String InvalidCodeMessage;
+    @Value("${service.message.invalid.code}:")
+    public String InvalidCodeMessage;
 
     @Value("${service.message.success}")
-    private String SuccessMessage;
+    public String SuccessMessage;
 
     @Value("${service.message.transferclosed}")
-    private String TransferClosedMessage;
-
+    public String TransferClosedMessage;
 
     private final WriteLog writeLog;
 
     private final TransferRepository transferRepository;
 
-    public String addTransferInfo(Transfer transfer) {
+    public UUID addTransferInfo(Transfer transfer) {
         UUID uuid = UUID.randomUUID();
+//        System.out.println("ADD " + transfer);
         writeLog.printTransfer(uuid, transfer);
-        return transferRepository.addTransfer(UUID.randomUUID(), transfer).toString();
+        return transferRepository.addTransfer(uuid, transfer);
     }
 
     public void confirmTransfer(ConfirmMessage confirmMessage) {
         UUID uuid = UUID.fromString(confirmMessage.getOperationId().getOperationId());
-        System.out.println(confirmMessage);
-        Optional<Transfer> transfer = transferRepository.getTransfer(confirmMessage.getOperationId().getOperationId());
+//        System.out.println("CHECK " + confirmMessage);
+        Optional<Transfer> transfer = transferRepository.getTransfer(
+                UUID.fromString(confirmMessage.getOperationId().getOperationId())
+        );
         if (transfer.isEmpty()) {
             throw new InvalidOperationId(InvalidOperationIdMessage);
         }
@@ -63,7 +66,6 @@ public class TransferService {
         }
         transferRepository.updateTransferResult(uuid, SuccessMessage);
         writeLog.printResult(uuid, SuccessMessage);
-//        return Optional.of(confirmMessage.getOperationId());
     }
 
     public Boolean checkCode(Code code) {

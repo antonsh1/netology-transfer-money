@@ -11,22 +11,21 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class TransferRepositoryImpl implements TransferRepository {
 
-    //    Map<UUID, TransferData> repository = new HashMap<>();
     private final Map<UUID, Transfer> repository = new ConcurrentHashMap<>();
 
     public UUID addTransfer(UUID uuid, Transfer transfer) {
         repository.put(uuid, transfer);
-        repository.values().forEach(System.out::println);
-        System.out.println(repository);
+//        repository.values().forEach(System.out::println);
         return uuid;
     }
 
-    public Optional<Transfer> getTransfer(String uuid) {
-        return Optional.ofNullable(repository.get(UUID.fromString(uuid)));
+    public Optional<Transfer> getTransfer(UUID uuid) {
+        return Optional.ofNullable(repository.get(uuid));
     }
 
     public void updateTransferResult(UUID uuid, String result) {
         repository.get(uuid).setClosed(true);
         repository.get(uuid).setResult(result);
     }
+
 }

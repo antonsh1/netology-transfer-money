@@ -1,0 +1,7 @@
+version: "1"
+
+services:
+  application:
+    image: "transfermoney:latest"
+    ports:
+      - "5500"

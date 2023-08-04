@@ -10,7 +10,6 @@ import java.util.Date;
 //@ConditionalOnProperty(prefix="transfer")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Transfer {

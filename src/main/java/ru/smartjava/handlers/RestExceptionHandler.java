@@ -54,7 +54,7 @@ public class RestExceptionHandler {
                     fieldName = "Неопознанная ошибка " + fieldName;
                     break;
             }
-            System.out.println(((FieldError) error).getField());
+//            System.out.println(((FieldError) error).getField());
             errorMessage += "(" + error.getDefaultMessage() + ")";
             errors.put(fieldName, errorMessage);
         });

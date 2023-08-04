@@ -30,7 +30,6 @@ public class WriteLog {
     private BufferedWriter out;
 
     public synchronized void init() {
-        System.out.println(path + fileName);
         try {
             this.fileWriter = new FileWriter(path + fileName, true);
             this.out = new BufferedWriter(this.fileWriter);
@@ -46,7 +45,6 @@ public class WriteLog {
                 uuid, transfer.getDate().toString(), transfer.getCardFromNumber(), transfer.getCardFromCVV(),
                 transfer.getCardFromValidTill(), transfer.getCardToNumber(), transfer.getAmount().getCurrency(), transfer.getAmount().getValue()
         );
-        System.out.println(message);
         try {
             out.append(message);
             out.flush();
@@ -61,14 +59,22 @@ public class WriteLog {
         String message = String.format(
                 "Transfer Result [%s] [%s]%n", uuid.toString(), result
         );
-        System.out.println(message);
         try {
             out.append(message);
             out.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public synchronized void simplePrint(String value) {
+        if (out == null) init();
+        try {
+            out.append(value);
+            out.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

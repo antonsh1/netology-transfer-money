@@ -1,6 +1,6 @@
 package ru.smartjava.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.smartjava.objects.ConfirmMessage;
 import ru.smartjava.objects.OperationId;
@@ -11,14 +11,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class TransferController {
 
     private final TransferService transferService;
-
-    @Autowired
-    public TransferController(TransferService transferService) {
-        this.transferService = transferService;
-    }
 
     @GetMapping("/check")
     public String checker() {
@@ -27,8 +23,7 @@ public class TransferController {
 
     @PostMapping("/transfer")
     public OperationId addTransferInfo(@Valid @RequestBody Transfer transfer) {
-//        writeLog.showLogFile();
-        return new OperationId(transferService.addTransferInfo(transfer));
+        return new OperationId(transferService.addTransferInfo(transfer).toString());
     }
 
     @PostMapping("/confirmOperation")
