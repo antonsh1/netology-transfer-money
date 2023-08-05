@@ -1,4 +1,4 @@
-package ru.smartjava.objects;
+package ru.smartjava.dto;
 
 import lombok.*;
 

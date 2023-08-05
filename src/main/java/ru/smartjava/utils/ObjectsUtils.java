@@ -1,6 +1,6 @@
 package ru.smartjava.utils;
 
-import ru.smartjava.objects.*;
+import ru.smartjava.dto.*;
 
 import java.util.UUID;
 

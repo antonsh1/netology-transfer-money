@@ -11,10 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import ru.smartjava.objects.ConfirmMessage;
-import ru.smartjava.objects.ErrorMessage;
-import ru.smartjava.objects.OperationId;
-import ru.smartjava.objects.Transfer;
+import ru.smartjava.dto.ConfirmMessage;
+import ru.smartjava.dto.ErrorMessage;
+import ru.smartjava.dto.OperationId;
+import ru.smartjava.dto.Transfer;
 import ru.smartjava.utils.ObjectsUtils;
 
 import java.util.Objects;
@@ -35,7 +35,7 @@ class MoneyTransferServiceApplicationTests {
 	private ConfirmMessage confirmMessage;
 
 	@Container
-	private final GenericContainer<?> myAppContainer = new GenericContainer("transfermoney")
+	private final GenericContainer<?> myAppContainer = new GenericContainer<>("transfermoney")
 			.withExposedPorts(port);
 
 	@BeforeEach
@@ -43,15 +43,6 @@ class MoneyTransferServiceApplicationTests {
 		transfer = ObjectsUtils.getTransfer();
 		wrongTransfer = ObjectsUtils.getWrongTransfer();
 		confirmMessage = ObjectsUtils.getConfirmMessage();
-	}
-
-	@Test
-	void checkTest() {
-		ResponseEntity<String> checkResponseEntity = restTemplate.getForEntity("http://localhost:" + myAppContainer.getMappedPort(port) + "/check", String.class);
-        System.out.println(checkResponseEntity.getBody());
-
-		Assertions.assertEquals(HttpStatus.OK.value(), checkResponseEntity.getStatusCodeValue());
-		Assertions.assertTrue(Objects.requireNonNull(checkResponseEntity.getBody()).contains("Check Okay"));
 	}
 
 	@Test
@@ -85,8 +76,8 @@ class MoneyTransferServiceApplicationTests {
 	@Test
 	void confirmWrongOperationTest() {
 		ResponseEntity<ErrorMessage> postResponseEntity = restTemplate.postForEntity("http://localhost:" + myAppContainer.getMappedPort(port) + "/confirmOperation", confirmMessage, ErrorMessage.class);
-		Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), postResponseEntity.getStatusCodeValue());
-		Assertions.assertEquals(Objects.requireNonNull(postResponseEntity.getBody()).getId(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+		Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), postResponseEntity.getStatusCodeValue());
+		Assertions.assertEquals(Objects.requireNonNull(postResponseEntity.getBody()).getId(), HttpStatus.BAD_REQUEST.value());
 	}
 
 }

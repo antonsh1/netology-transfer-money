@@ -1,20 +1,19 @@
-package ru.smartjava.objects;
+package ru.smartjava.dto;
 
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ConfirmMessage {
+public class OperationId {
 
     @NotNull
-    Code code;
-
-    @NotNull
-    OperationId operationId;
+    private String operationId;
 
 }
+
+

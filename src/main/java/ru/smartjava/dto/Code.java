@@ -1,19 +1,17 @@
-package ru.smartjava.objects;
+package ru.smartjava.dto;
 
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OperationId {
+public class Code {
 
     @NotNull
-    private String operationId;
+    String code;
 
 }
-
-

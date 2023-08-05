@@ -1,7 +1,7 @@
 package ru.smartjava.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.smartjava.objects.Transfer;
+import ru.smartjava.dto.Transfer;
 
 import java.util.Map;
 import java.util.Optional;
@@ -15,7 +15,6 @@ public class TransferRepositoryImpl implements TransferRepository {
 
     public UUID addTransfer(UUID uuid, Transfer transfer) {
         repository.put(uuid, transfer);
-//        repository.values().forEach(System.out::println);
         return uuid;
     }
 

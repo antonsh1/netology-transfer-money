@@ -1,34 +1,30 @@
 package ru.smartjava.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.smartjava.objects.ConfirmMessage;
-import ru.smartjava.objects.OperationId;
-import ru.smartjava.objects.Transfer;
+import ru.smartjava.dto.ConfirmMessage;
+import ru.smartjava.dto.OperationId;
+import ru.smartjava.dto.Transfer;
 import ru.smartjava.service.TransferService;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping
 @RequiredArgsConstructor
 public class TransferController {
 
     private final TransferService transferService;
 
-    @GetMapping("/check")
-    public String checker() {
-        return "Check Okay";
-    }
-
     @PostMapping("/transfer")
-    public OperationId addTransferInfo(@Valid @RequestBody Transfer transfer) {
-        return new OperationId(transferService.addTransferInfo(transfer).toString());
+    public ResponseEntity<OperationId> addTransferInfo(@Valid @RequestBody Transfer transfer) {
+        return ResponseEntity.ok(new OperationId(String.valueOf(transferService.addTransferInfo(transfer))));
     }
 
     @PostMapping("/confirmOperation")
-    public OperationId confirmCode(@Valid @RequestBody ConfirmMessage confirmMessage) {
+    public ResponseEntity<OperationId> confirmCode(@Valid @RequestBody ConfirmMessage confirmMessage) {
         transferService.confirmTransfer(confirmMessage);
-        return confirmMessage.getOperationId();
+        return ResponseEntity.ok(confirmMessage.getOperationId());
     }
 }

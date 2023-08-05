@@ -1,7 +1,7 @@
 package ru.smartjava.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.smartjava.objects.Transfer;
+import ru.smartjava.dto.Transfer;
 
 import java.util.Optional;
 import java.util.UUID;

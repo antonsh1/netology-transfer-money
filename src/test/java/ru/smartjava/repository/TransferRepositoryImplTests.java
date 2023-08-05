@@ -3,7 +3,7 @@ package ru.smartjava.repository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.smartjava.objects.Transfer;
+import ru.smartjava.dto.Transfer;
 import ru.smartjava.utils.ObjectsUtils;
 
 
