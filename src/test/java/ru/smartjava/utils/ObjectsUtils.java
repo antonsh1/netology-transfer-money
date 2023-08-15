@@ -10,7 +10,7 @@ public class ObjectsUtils {
     public static final String uuidString2 = "38d1e222-d74d-4bed-8edc-e92f263c7152";
     public static final UUID uuid = UUID.fromString(uuidString);
 
-    public static final UUID uuid2 = UUID.fromString(uuidString2);
+//    public static final UUID uuid2 = UUID.fromString(uuidString2);
     public static final String result = "Результат проверки";
 
     public static Transfer getTransfer() {

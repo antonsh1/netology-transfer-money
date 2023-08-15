@@ -37,6 +37,11 @@ class MoneyTransferServiceApplicationTests {
 	@Container
 	private final GenericContainer<?> myAppContainer = new GenericContainer<>("transfermoney")
 			.withExposedPorts(port);
+//			private final GenericContainer<?> myAppContainer = new GenericContainer<>(
+//					new ImageFromDockerfile()
+//							.withDockerfile(Paths.get("./Dockerfile"))
+//	)
+//			.withExposedPorts(port);
 
 	@BeforeEach
 	void initData() {
